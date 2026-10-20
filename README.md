@@ -4,6 +4,24 @@ Uma skill em português para compreender, auditar, planejar e melhorar materiais
 
 **Beta pública 0.2.1.** O núcleo é um arquivo Markdown portátil, que você pode colar ou anexar em uma conversa. Não exige plugin instalado, Git, Python ou Codex para esse uso. Os resultados dependem do modelo, dos materiais e das capacidades disponíveis; a portabilidade do texto não significa compatibilidade universal testada.
 
+## Escolher o pacote
+
+| Pacote | Uso | Requisitos |
+|---|---|---|
+| [OrquestradorMaster 0.2.1](skills/orquestrador-master/SKILL.md) | Método geral autossuficiente; adapta-se ao LLM/runtime disponível | Markdown; Python 3.10+ apenas para os utilitários do repositório |
+| [Maestro Econômico 3.0.0](skills/maestro-economico/SKILL.md) | Coordenação por conversas visíveis Codex, executores responsáveis e revisão independente | Ferramenta de conversas visíveis; Node.js 18+ para gerar fluxograma offline/resumo; Node.js 22+ apenas para Jev opcional |
+
+Os pacotes são alternativas independentes. O Maestro não substitui o OrquestradorMaster nem configura o runtime. Para usá-lo, copie **a pasta inteira** `skills/maestro-economico` para um destino de skills compatível, preservando referências, scripts e licenças. O instalador abaixo continua copiando somente `orquestrador-master`; não instala o Maestro implicitamente. Confira destinos e preserve uma cópia recuperável antes de substituir uma instalação existente.
+
+No Maestro, copie um [exemplo sintético](skills/maestro-economico/examples/new-project.json) para `project-state.json` no projeto atendido. Da pasta da skill, use os comandos abaixo com caminhos relativos adequados ao seu projeto:
+
+```text
+node scripts/project-state.mjs validate <projeto>/project-state.json
+node scripts/project-state.mjs render <projeto>/project-state.json <projeto>/outputs
+```
+
+HTML e `PROJECT_STATE.md` derivam da mesma revisão JSON; o fluxograma funciona offline, sem CDN. Estado, mapas, logs, caches e dados do projeto ficam fora da pasta da skill. Veja [contrato/CLI](skills/maestro-economico/references/project-state.md), [origem/licença](skills/maestro-economico/references/origin.md) e [Jev opcional](skills/maestro-economico/references/jev.md). Não é necessário serviço externo para o gerador.
+
 ## Primeiro uso: texto ou anexo
 
 1. Abra [SKILL.md](skills/orquestrador-master/SKILL.md) e copie o conteúdo para uma conversa, ou baixe e anexe o arquivo. Você também pode obter o pacote na [release v0.2.1](https://github.com/RafaelBritoChoco/OrquestradorMaster/releases/tag/v0.2.1).
@@ -43,7 +61,7 @@ No Windows, substitua `python3` por `py -3.11 -X utf8`. Conteúdo idêntico não
 
 As quatro inspirações são mapa compreensível (Draw.io), menor mudança completa (Ponytail), auditoria e plano com evidências (improve) e inspeção crítica de instruções (SkillSpector). Esses projetos não são dependências e não são instalados ou executados por este pacote. Consulte [conceitos e atribuições](docs/conceitos.md), [fontes datadas](sources/README.md) e [avisos de terceiros](THIRD_PARTY_NOTICES.md).
 
-Este repositório distribui somente a skill, suas referências, fontes, utilitários e fixtures sintéticas próprias. Entregas de aplicação ficam no projeto atendido ou na resposta/anexo. Não inclua aqui nomes, links, diagnósticos, código, caminhos ou logs de qualquer projeto de aplicação.
+Este repositório distribui os dois pacotes de skills, suas referências, fontes, utilitários e fixtures sintéticas próprias. Entregas de aplicação ficam no projeto atendido ou na resposta/anexo. Não inclua aqui nomes, links, diagnósticos, código, caminhos ou logs de qualquer projeto de aplicação.
 
 ## Verificação e manutenção opcionais
 
@@ -52,6 +70,8 @@ Para quem mantém a distribuição, com Python disponível:
 ```text
 python3 -m unittest discover -s tests -v
 python3 scripts/validate.py
+# Para mudanças no Maestro (Node.js 22+; inclui Jev em dry-run sem rede):
+node --test tests/maestro-state.test.mjs
 ```
 
 Os testes usam fixtures sintéticas. A validação estrutural do pacote não comprova eficácia em todos os domínios ou modelos. `python3 scripts/check_sources.py` é uma consulta opcional de rede que requer Git e compara os pins registrados sem alterá-los. Veja [atualização](docs/atualizacao.md), [workflow](docs/workflow.md), [histórico](CHANGELOG.md) e [licença MIT](LICENSE).

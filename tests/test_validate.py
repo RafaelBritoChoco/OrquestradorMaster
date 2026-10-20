@@ -76,6 +76,24 @@ class ValidateTests(unittest.TestCase):
         (self.root / 'sources/registry.json').write_text('[]')
         self.assertTrue(any('Registry ilegível' in e for e in validator.validate(self.root)))
 
+    def test_complete_distribution_requires_maestro_helpers(self):
+        errors = validator.validate(self.root)
+        self.assertTrue(any('skills/maestro-economico/scripts/project-state.mjs' in e for e in errors))
+        self.assertTrue(any('skills/maestro-economico/LICENSE' in e for e in errors))
+
+    def test_maestro_reference_must_work_after_isolated_copy(self):
+        skill = self.root / 'skills' / 'maestro-economico'
+        skill.mkdir(parents=True)
+        (self.root / 'README.md').write_text('outside package')
+        (skill / 'SKILL.md').write_text('[escape](../../README.md)', encoding='utf-8')
+        self.assertTrue(any('Maestro não portátil' in e for e in validator.validate(self.root)))
+
+    def test_malformed_maestro_template_is_reported(self):
+        examples = self.root / 'skills' / 'maestro-economico' / 'examples'
+        examples.mkdir(parents=True)
+        (examples / 'new-project.json').write_text('[]')
+        self.assertTrue(any('Exemplo Maestro inválido: new-project' in e for e in validator.validate(self.root)))
+
 
 if __name__ == '__main__':
     unittest.main()

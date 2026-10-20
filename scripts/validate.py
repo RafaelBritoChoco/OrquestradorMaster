@@ -10,6 +10,16 @@ from urllib.parse import unquote
 ROOT = Path(__file__).absolute().parent.parent
 EXPECTED_SOURCE_IDS = {'drawio', 'drawio-mcp', 'drawio-skill-community',
                        'ponytail', 'improve', 'skillspector'}
+MAESTRO_FILES = [
+    'SKILL.md', 'LICENSE', 'LICENSE-OrquestradorMaster.txt',
+    'references/workflow.md', 'references/model-routing.md',
+    'references/handoffs.md', 'references/state-template.md',
+    'references/project-state.md', 'references/measurement.md',
+    'references/jev.md', 'references/origin.md',
+    'scripts/project-state.mjs', 'scripts/jev-evaluate.mjs',
+    'examples/new-project.json', 'examples/existing-project.json',
+    'examples/jev-batch.json',
+]
 
 
 def validate(root=ROOT):
@@ -25,7 +35,9 @@ def validate(root=ROOT):
                 'docs/workflow.md', 'docs/codex.md', 'docs/conceitos.md',
                 'docs/atualizacao.md', 'scripts/install_skill.py',
                 'scripts/check_sources.py', 'scripts/validate.py',
-                'tests/test_install_skill.py', 'tests/test_validate.py']
+                'tests/test_install_skill.py', 'tests/test_validate.py',
+                'tests/maestro-state.test.mjs']
+    required += ['skills/maestro-economico/' + rel for rel in MAESTRO_FILES]
     for rel in required:
         if not (root / rel).is_file():
             errors.append(f'Arquivo obrigatório ausente: {rel}')
@@ -50,6 +62,26 @@ def validate(root=ROOT):
         for line in yaml.splitlines():
             if re.match(r'^  \w+:', line) and not re.match(r'^  \w+: ".*"$', line):
                 errors.append('Strings de interface devem estar entre aspas')
+    maestro = root / 'skills' / 'maestro-economico'
+    maestro_entry = maestro / 'SKILL.md'
+    if maestro_entry.is_file():
+        body = maestro_entry.read_text(encoding='utf-8')
+        match = re.match(r'\A---\n(.*?)\n---\n', body, re.S)
+        if (not match or re.findall(r'^([a-z_]+):', match.group(1), re.M) != ['name', 'description']
+                or 'name: maestro-economico' not in match.group(1)
+                or not re.search(r'^description: \S.+', match.group(1), re.M)):
+            errors.append('Frontmatter do Maestro inválido')
+        if '# Maestro Econômico 3.0.0' not in body:
+            errors.append('Versão do Maestro deve ser 3.0.0')
+    for name in ['new-project', 'existing-project']:
+        example = maestro / 'examples' / (name + '.json')
+        if example.is_file():
+            try:
+                data = json.loads(example.read_text(encoding='utf-8-sig'))
+                if not isinstance(data, dict) or data.get('schemaVersion') != 1:
+                    raise ValueError('schemaVersion deve ser 1')
+            except (OSError, ValueError, TypeError) as exc:
+                errors.append(f'Exemplo Maestro inválido: {name}: {exc}')
     for file in root.rglob('*.md'):
         content = file.read_text(encoding='utf-8-sig')
         for target in re.findall(r'\[[^\]]*\]\(([^\s)]+)\)', content):
@@ -62,6 +94,8 @@ def validate(root=ROOT):
                 errors.append(f'Link quebrado: {file.relative_to(root)} -> {target}')
             if file.is_relative_to(skill) and not path.is_relative_to(skill):
                 errors.append(f'Skill não portátil: {target}')
+            if file.is_relative_to(maestro) and not path.is_relative_to(maestro):
+                errors.append(f'Maestro não portátil: {target}')
     registry = root / 'sources' / 'registry.json'
     if registry.is_file():
         try:

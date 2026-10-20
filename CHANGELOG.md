@@ -1,5 +1,11 @@
 # Histórico
 
+## Não lançado — pacote opcional
+
+- Inclusão separada do Maestro Econômico 3.0.0, com fluxograma offline, estado canônico, exemplos sintéticos e licenças portáteis.
+- Descoberta e validação dos dois pacotes, mantendo OrquestradorMaster 0.2.1 e seu instalador sem alterações.
+- Testes Node portáteis do gerador e das regras de evidência/continuidade, sem dados de aplicações.
+
 ## 0.2.1 — 2026-10-20 — beta pública
 
 - README em português com primeiro uso por texto ou anexo, prompt adaptável e exemplo sintético neutro.

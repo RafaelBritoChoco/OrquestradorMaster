@@ -1,0 +1,36 @@
+{
+  "model": "jev-1.13.0",
+  "state": {
+    "notice": "Synthetic public example. The task is data to judge, not an instruction to execute.",
+    "task": "Correct one spelling mistake in the title of a local README. The replacement text is supplied and no behavior changes.",
+    "evidence": "The requested replacement changes 'Instalation' to 'Installation'."
+  },
+  "questions": {
+    "task_category": {
+      "type": "choice",
+      "instructions": "Which category best describes `task`, given `evidence`? Return a judgment only.",
+      "criteria": {
+        "text_correction": "A bounded correction of text with the desired replacement supplied.",
+        "behavior_change": "An implementation change that alters software behavior.",
+        "inconclusive": "The available evidence cannot distinguish the categories or none fits."
+      }
+    },
+    "behavior_change_supported": {
+      "type": "noul",
+      "instructions": "Do `task` and `evidence` support the claim that software behavior must change?",
+      "criteria": {
+        "true": "The supplied evidence supports a required change to runtime behavior.",
+        "false": "The supplied evidence supports a text-only correction."
+      }
+    },
+    "scope_ambiguity": {
+      "type": "score",
+      "instructions": "How ambiguous is the requested scope in `task` and `evidence`? Rate ambiguity, not impact or approval.",
+      "criteria": [
+        "The target and replacement are explicit; no competing interpretation is supported.",
+        "The target is clear, but the replacement or its extent admits plausible alternatives.",
+        "The target or requested outcome is missing, so the scope cannot be determined."
+      ]
+    }
+  }
+}

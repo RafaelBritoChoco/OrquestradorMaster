@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "projectId": "example-new",
+  "title": "Exemplo sintético • projeto novo",
+  "objective": "Demonstrar proposta, execução e revisão sem dados reais.",
+  "stateOwner": "Dono sintético",
+  "nextStep": "Executar implementação delimitada; revisão e instalação pendentes.",
+  "components": [
+    {
+      "id": "c-start",
+      "title": "Contrato e critérios",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Responsabilidade sintética de Contrato e critérios",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "coordenação",
+      "row": 0,
+      "col": 0,
+      "kind": "start"
+    },
+    {
+      "id": "c-build",
+      "title": "Inspecionar e implementar",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Responsabilidade sintética de Inspecionar e implementar",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "execução",
+      "row": 1,
+      "col": 0,
+      "kind": "process"
+    },
+    {
+      "id": "c-review",
+      "title": "Critérios satisfeitos?",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Responsabilidade sintética de Critérios satisfeitos?",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "execução",
+      "row": 2,
+      "col": 0,
+      "kind": "decision"
+    },
+    {
+      "id": "c-fix",
+      "title": "Corrigir no mesmo chat",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Responsabilidade sintética de Corrigir no mesmo chat",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "execução",
+      "row": 3,
+      "col": 1,
+      "kind": "process"
+    },
+    {
+      "id": "c-deliver",
+      "title": "Entregar após aprovação",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Responsabilidade sintética de Entregar após aprovação",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "execução",
+      "row": 4,
+      "col": 0,
+      "kind": "end"
+    }
+  ],
+  "connections": [
+    {
+      "id": "e-one",
+      "title": "delegar",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-start",
+      "to": "c-build",
+      "label": "delegar"
+    },
+    {
+      "id": "e-two",
+      "title": "evidência",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-build",
+      "to": "c-review",
+      "label": "evidência"
+    },
+    {
+      "id": "e-yes",
+      "title": "sim",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-review",
+      "to": "c-deliver",
+      "label": "sim"
+    },
+    {
+      "id": "e-no",
+      "title": "não",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-review",
+      "to": "c-fix",
+      "label": "não"
+    },
+    {
+      "id": "e-return",
+      "title": "rechecagem",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-fix",
+      "to": "c-review",
+      "label": "rechecagem"
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat-build",
+      "title": "Conversa visível sintética",
+      "status": "planejado",
+      "evidenceIds": [],
+      "owner": "Executor sintético",
+      "recommendedModel": "capacidade proporcional",
+      "recommendedEffort": "proporcional",
+      "effectiveModel": "desconhecido",
+      "effectiveEffort": "desconhecido"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t-build",
+      "title": "Implementar menor mudança completa",
+      "status": "pendente",
+      "evidenceIds": [],
+      "owner": "Executor sintético",
+      "chatId": "chat-build",
+      "componentIds": [
+        "c-build"
+      ],
+      "blockedBy": []
+    }
+  ],
+  "criteria": [
+    {
+      "id": "crit-demo",
+      "title": "Aceitação exige prova correspondente",
+      "status": "pendente",
+      "evidenceIds": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": "d-scope",
+      "title": "Preservar escopo",
+      "status": "planejado",
+      "evidenceIds": [],
+      "detail": "A proposta ainda não representa comportamento implementado."
+    }
+  ],
+  "issues": [],
+  "evidence": [],
+  "changes": [
+    {
+      "id": "change-initial",
+      "title": "Mapa inicial",
+      "status": "planejado",
+      "evidenceIds": [],
+      "detail": "Estado sintético inicial; sem implementação alegada."
+    }
+  ]
+}
