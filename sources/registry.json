@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-20T11:13:24.816710+00:00",
+  "video": {
+    "url": "https://www.youtube.com/watch?v=lK1iqKYEmp8&t=330s",
+    "title": "O Arsenal de Guerra Para Criar APPs com IA (4 Pérolas Github)",
+    "channel": "Maestros da IA",
+    "published_at": "2026-06-27",
+    "duration_seconds": 1482,
+    "analysis_method": "Análise automática de 32 cenas, metadados e conferência dos repositórios; não é transcrição literal.",
+    "chapters": [
+      {
+        "seconds": 222,
+        "topic": "draw.io"
+      },
+      {
+        "seconds": 532,
+        "topic": "Ponytail"
+      },
+      {
+        "seconds": 647,
+        "topic": "improve"
+      },
+      {
+        "seconds": 775,
+        "topic": "Criação e revisão"
+      },
+      {
+        "seconds": 1109,
+        "topic": "SkillSpector"
+      },
+      {
+        "seconds": 1258,
+        "topic": "Interpretação de alertas"
+      }
+    ],
+    "uncertainty": "Repositório exato da skill de draw.io demonstrada não confirmado."
+  },
+  "repositories": [
+    {
+      "id": "drawio",
+      "repo": "jgraph/drawio",
+      "url": "https://github.com/jgraph/drawio",
+      "branch": "dev",
+      "commit": "17b367b91dbab91804f852645788d7ffb46dcb79",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/jgraph/drawio/blob/17b367b91dbab91804f852645788d7ffb46dcb79/LICENSE",
+      "license_file": "licenses/drawio.txt",
+      "license_sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Editor e formato de diagramas",
+      "video_relation": "editor_confirmado",
+      "documents": [
+        "README.md"
+      ],
+      "notes": [
+        "A skill exata mostrada no vídeo não foi confirmada."
+      ]
+    },
+    {
+      "id": "drawio-mcp",
+      "repo": "jgraph/drawio-mcp",
+      "url": "https://github.com/jgraph/drawio-mcp",
+      "branch": "main",
+      "commit": "8985c813649dbc60dcadc0c22bf55b0f2eb55752",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/jgraph/drawio-mcp/blob/8985c813649dbc60dcadc0c22bf55b0f2eb55752/LICENSE",
+      "license_file": "licenses/drawio-mcp.txt",
+      "license_sha256": "006e61a1b8c97620d75ceacc283de7a363d78da7da9a5b92203324c40feb7232",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Integração oficial relacionada para diagramas",
+      "video_relation": "integracao_relacionada",
+      "documents": [
+        "README.md"
+      ],
+      "notes": [
+        "Não atribuir esta integração específica ao vídeo sem nova evidência."
+      ]
+    },
+    {
+      "id": "drawio-skill-community",
+      "repo": "Agents365-ai/drawio-skill",
+      "url": "https://github.com/Agents365-ai/drawio-skill",
+      "branch": "main",
+      "commit": "57270820d3cd71cbdf4fb6b2f7091d4fb37bb019",
+      "license": "MIT",
+      "license_url": "https://github.com/Agents365-ai/drawio-skill/blob/57270820d3cd71cbdf4fb6b2f7091d4fb37bb019/LICENSE",
+      "license_file": "licenses/drawio-skill-community.txt",
+      "license_sha256": "0d43b46456eda48a9054fbfa915ac80e150f5db5cf90714eda710c02e1df461a",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Skill comunitária relacionada de diagramas",
+      "video_relation": "integracao_relacionada",
+      "documents": [
+        "README.md",
+        "skills/drawio-skill/SKILL.md",
+        "docs/USAGE.md"
+      ],
+      "notes": [
+        "Alternativa verificada, sem confirmação de que seja a skill do vídeo."
+      ]
+    },
+    {
+      "id": "ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "branch": "main",
+      "commit": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+      "license": "MIT",
+      "license_url": "https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/LICENSE",
+      "license_file": "licenses/ponytail.txt",
+      "license_sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Menor alteração completa e revisão contextual",
+      "video_relation": "confirmado",
+      "documents": [
+        "README.md",
+        "INSTALL.md",
+        "skills/ponytail/SKILL.md",
+        "skills/ponytail-review/SKILL.md",
+        "skills/ponytail-audit/SKILL.md"
+      ],
+      "notes": [
+        "Versão consultada em outubro pode diferir da demonstrada em junho."
+      ]
+    },
+    {
+      "id": "improve",
+      "repo": "shadcn/improve",
+      "url": "https://github.com/shadcn/improve",
+      "branch": "main",
+      "commit": "cac56e1ebd3c279aa9153616cfeac7b174ab90f9",
+      "license": "MIT",
+      "license_url": "https://github.com/shadcn/improve/blob/cac56e1ebd3c279aa9153616cfeac7b174ab90f9/LICENSE.md",
+      "license_file": "licenses/improve.txt",
+      "license_sha256": "00ff8408e93e2ecc4d90c0edeabdf434100c3aff50acc5d330e17eccd4a3faa5",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Auditoria com evidências, planos e verificação",
+      "video_relation": "confirmado",
+      "documents": [
+        "README.md",
+        "skills/improve/SKILL.md",
+        "skills/improve/references/audit-playbook.md",
+        "skills/improve/references/closing-the-loop.md"
+      ],
+      "notes": [
+        "O auditor e o executor têm papéis distintos; não generalizar restrição de um papel ao orquestrador inteiro."
+      ]
+    },
+    {
+      "id": "skillspector",
+      "repo": "NVIDIA/SkillSpector",
+      "url": "https://github.com/NVIDIA/SkillSpector",
+      "branch": "main",
+      "commit": "95a52d89fa16f608f0b18ccee76b0918ea4b7eef",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/NVIDIA/SkillSpector/blob/95a52d89fa16f608f0b18ccee76b0918ea4b7eef/LICENSE",
+      "license_file": "licenses/skillspector.txt",
+      "license_sha256": "9f8785b47596b2993a17a3fa8d747ae63126a2c5e80a9e77195a907273d71839",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00",
+      "role": "Scanner de skills de agentes",
+      "video_relation": "confirmado",
+      "documents": [
+        "README.md"
+      ],
+      "notes": [
+        "Não executa a skill inspecionada; varredura não é sandbox nem garantia de segurança.",
+        "--no-llm ainda pode consultar OSV com nomes e versões de pacotes."
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "codex-skills",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00"
+    },
+    {
+      "id": "codex-plugins",
+      "url": "https://learn.chatgpt.com/docs/plugins",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00"
+    },
+    {
+      "id": "codex-cli-commands",
+      "url": "https://learn.chatgpt.com/docs/developer-commands",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00"
+    },
+    {
+      "id": "drawio-mcp-guide",
+      "url": "https://www.drawio.com/mcp/",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00"
+    },
+    {
+      "id": "nvidia-skills-scanning",
+      "url": "https://docs.nvidia.com/skills/scanning-agent-skills/",
+      "checked_at": "2026-10-20T11:13:24.816710+00:00"
+    }
+  ],
+  "collection": {
+    "method": "GitHub CLI API: metadata, HEAD da branch padrão e licença no mesmo commit.",
+    "upstream_code_vendored": false
+  }
+}

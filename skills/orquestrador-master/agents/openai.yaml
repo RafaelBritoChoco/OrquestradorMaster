@@ -1,0 +1,4 @@
+interface:
+  display_name: "OrquestradorMaster"
+  short_description: "Organiza, audita e melhora projetos com evidências"
+  default_prompt: "Use $orquestrador-master para organizar e melhorar este projeto comigo."
