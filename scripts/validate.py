@@ -11,7 +11,9 @@ ROOT = Path(__file__).absolute().parent.parent
 EXPECTED_SOURCE_IDS = {'drawio', 'drawio-mcp', 'drawio-skill-community',
                        'ponytail', 'improve', 'skillspector'}
 MAESTRO_FILES = [
-    'SKILL.md', 'LICENSE', 'LICENSE-OrquestradorMaster.txt',
+    'SKILL.md', 'LICENSE', 'LICENSE-OrquestradorMaster.txt', 'CHANGELOG.md',
+    'assets/project-map.html', 'scripts/project-presentation.mjs',
+    'references/presentation-review.md',
     'references/workflow.md', 'references/model-routing.md',
     'references/handoffs.md', 'references/state-template.md',
     'references/project-state.md', 'references/measurement.md',
@@ -71,8 +73,8 @@ def validate(root=ROOT):
                 or 'name: maestro-economico' not in match.group(1)
                 or not re.search(r'^description: \S.+', match.group(1), re.M)):
             errors.append('Frontmatter do Maestro inválido')
-        if '# Maestro Econômico 3.0.0' not in body:
-            errors.append('Versão do Maestro deve ser 3.0.0')
+        if '# Maestro Econômico 3.1.0' not in body:
+            errors.append('Versão do Maestro deve ser 3.1.0')
     for name in ['new-project', 'existing-project']:
         example = maestro / 'examples' / (name + '.json')
         if example.is_file():

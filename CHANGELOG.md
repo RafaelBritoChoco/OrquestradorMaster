@@ -2,6 +2,8 @@
 
 ## Não lançado — pacote opcional
 
+- Maestro Econômico atualizado para 3.1.0: apresentação compreensível, fluxo adaptável, seleção móvel e revisão do artefato renderizado. A versão do OrquestradorMaster permanece 0.2.1.
+
 - Inclusão separada do Maestro Econômico 3.0.0, com fluxograma offline, estado canônico, exemplos sintéticos e licenças portáteis.
 - Descoberta e validação dos dois pacotes, mantendo OrquestradorMaster 0.2.1 e seu instalador sem alterações.
 - Testes Node portáteis do gerador e das regras de evidência/continuidade, sem dados de aplicações.

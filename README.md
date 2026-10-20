@@ -9,7 +9,7 @@ Uma skill em português para compreender, auditar, planejar e melhorar materiais
 | Pacote | Uso | Requisitos |
 |---|---|---|
 | [OrquestradorMaster 0.2.1](skills/orquestrador-master/SKILL.md) | Método geral autossuficiente; adapta-se ao LLM/runtime disponível | Markdown; Python 3.10+ apenas para os utilitários do repositório |
-| [Maestro Econômico 3.0.0](skills/maestro-economico/SKILL.md) | Coordenação por conversas visíveis Codex, executores responsáveis e revisão independente | Ferramenta de conversas visíveis; Node.js 18+ para gerar fluxograma offline/resumo; Node.js 22+ apenas para Jev opcional |
+| [Maestro Econômico 3.1.0](skills/maestro-economico/SKILL.md) | Coordenação por conversas visíveis Codex, executores responsáveis e revisão independente | Ferramenta de conversas visíveis; Node.js 18+ para gerar fluxograma offline/resumo; Node.js 22+ apenas para Jev opcional |
 
 Os pacotes são alternativas independentes. O Maestro não substitui o OrquestradorMaster nem configura o runtime. Para usá-lo, copie **a pasta inteira** `skills/maestro-economico` para um destino de skills compatível, preservando referências, scripts e licenças. O instalador abaixo continua copiando somente `orquestrador-master`; não instala o Maestro implicitamente. Confira destinos e preserve uma cópia recuperável antes de substituir uma instalação existente.
 
@@ -20,7 +20,7 @@ node scripts/project-state.mjs validate <projeto>/project-state.json
 node scripts/project-state.mjs render <projeto>/project-state.json <projeto>/outputs
 ```
 
-HTML e `PROJECT_STATE.md` derivam da mesma revisão JSON; o fluxograma funciona offline, sem CDN. Estado, mapas, logs, caches e dados do projeto ficam fora da pasta da skill. Veja [contrato/CLI](skills/maestro-economico/references/project-state.md), [origem/licença](skills/maestro-economico/references/origin.md) e [Jev opcional](skills/maestro-economico/references/jev.md). Não é necessário serviço externo para o gerador.
+HTML e `PROJECT_STATE.md` derivam da mesma revisão JSON; o fluxograma funciona offline, sem CDN. Na versão 3.1, a abertura usa explicações simples e seleção com retorno; o mapa completo e os registros ficam opcionais. O responsável escreve os textos e escolhe o caminho em `presentation`, sem alterar os status originais. Estado, mapas, logs, caches e dados do projeto ficam fora da pasta da skill. Veja [contrato/CLI](skills/maestro-economico/references/project-state.md), [origem/licença](skills/maestro-economico/references/origin.md) e [Jev opcional](skills/maestro-economico/references/jev.md). Não é necessário serviço externo para o gerador.
 
 ## Primeiro uso: texto ou anexo
 

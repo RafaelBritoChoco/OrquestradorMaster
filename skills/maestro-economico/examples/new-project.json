@@ -2,17 +2,17 @@
   "schemaVersion": 1,
   "revision": 1,
   "projectId": "example-new",
-  "title": "Exemplo sintético • projeto novo",
-  "objective": "Demonstrar proposta, execução e revisão sem dados reais.",
+  "title": "Pedido de horário fictício",
+  "objective": "Mostrar como um pedido de horário pode ser conferido e confirmado.",
   "stateOwner": "Dono sintético",
-  "nextStep": "Executar implementação delimitada; revisão e instalação pendentes.",
+  "nextStep": "Experimentar uma data disponível e outra sem horário livre.",
   "components": [
     {
       "id": "c-start",
-      "title": "Contrato e critérios",
+      "title": "Você pede um horário",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Contrato e critérios",
+      "responsibility": "Você informa a data que gostaria de reservar.",
       "inputs": [
         "Contrato"
       ],
@@ -27,10 +27,10 @@
     },
     {
       "id": "c-build",
-      "title": "Inspecionar e implementar",
+      "title": "A equipe confere a data",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Inspecionar e implementar",
+      "responsibility": "A equipe consulta os horários disponíveis para essa data.",
       "inputs": [
         "Contrato"
       ],
@@ -45,10 +45,10 @@
     },
     {
       "id": "c-review",
-      "title": "Critérios satisfeitos?",
+      "title": "Há horário livre?",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Critérios satisfeitos?",
+      "responsibility": "Se houver horário, o pedido pode seguir para a confirmação.",
       "inputs": [
         "Contrato"
       ],
@@ -63,10 +63,10 @@
     },
     {
       "id": "c-fix",
-      "title": "Corrigir no mesmo chat",
+      "title": "Você escolhe outra data",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Corrigir no mesmo chat",
+      "responsibility": "Quando não há horário, uma nova data volta para a conferência.",
       "inputs": [
         "Contrato"
       ],
@@ -81,10 +81,10 @@
     },
     {
       "id": "c-deliver",
-      "title": "Entregar após aprovação",
+      "title": "Você recebe a confirmação",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Entregar após aprovação",
+      "responsibility": "A equipe informa qual horário foi reservado.",
       "inputs": [
         "Contrato"
       ],
@@ -101,48 +101,48 @@
   "connections": [
     {
       "id": "e-one",
-      "title": "delegar",
+      "title": "Enviar pedido",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-start",
       "to": "c-build",
-      "label": "delegar"
+      "label": "Enviar pedido"
     },
     {
       "id": "e-two",
-      "title": "evidência",
+      "title": "Ver disponibilidade",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-build",
       "to": "c-review",
-      "label": "evidência"
+      "label": "Ver disponibilidade"
     },
     {
       "id": "e-yes",
-      "title": "sim",
+      "title": "Há horário",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-review",
       "to": "c-deliver",
-      "label": "sim"
+      "label": "Sim"
     },
     {
       "id": "e-no",
-      "title": "não",
+      "title": "Não há horário",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-review",
       "to": "c-fix",
-      "label": "não"
+      "label": "Não"
     },
     {
       "id": "e-return",
-      "title": "rechecagem",
+      "title": "Conferir nova data",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-fix",
-      "to": "c-review",
-      "label": "rechecagem"
+      "to": "c-build",
+      "label": "Nova data"
     }
   ],
   "chats": [
@@ -161,11 +161,25 @@
   "tasks": [
     {
       "id": "t-build",
-      "title": "Implementar menor mudança completa",
+      "title": "Experimentar as duas possibilidades",
       "status": "pendente",
       "evidenceIds": [],
       "owner": "Executor sintético",
       "chatId": "chat-build",
+      "componentIds": [
+        "c-build"
+      ],
+      "blockedBy": []
+    },
+    {
+      "id": "t-example-check",
+      "title": "Conferência de um pedido fictício",
+      "status": "verificado",
+      "evidenceIds": [
+        "proof-synthetic-test"
+      ],
+      "owner": "Pessoa fictícia",
+      "chatId": null,
       "componentIds": [
         "c-build"
       ],
@@ -190,7 +204,21 @@
     }
   ],
   "issues": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "proof-synthetic-test",
+      "title": "Registro fictício de teste",
+      "status": "verificado",
+      "evidenceIds": [],
+      "source": "fixture: teste demonstrativo, não é evidência de um projeto real",
+      "result": "No exemplo simulado, um pedido com data preenchida chegou à conferência. Outros usos não foram testados.",
+      "kind": "runtime",
+      "revision": 1,
+      "supports": [
+        "t-example-check"
+      ]
+    }
+  ],
   "changes": [
     {
       "id": "change-initial",
@@ -199,5 +227,71 @@
       "evidenceIds": [],
       "detail": "Estado sintético inicial; sem implementação alegada."
     }
-  ]
+  ],
+  "presentation": {
+    "schemaVersion": 1,
+    "title": "Pedido de horário fictício",
+    "intro": "Este exemplo fictício mostra como um pedido chega à confirmação e o que acontece quando a data não tem horário.",
+    "nextStep": "Experimentar uma data disponível e outra sem horário livre.",
+    "mainPath": [
+      "c-start",
+      "c-build",
+      "c-review",
+      "c-deliver"
+    ],
+    "branches": [
+      {
+        "after": "c-review",
+        "componentIds": [
+          "c-fix"
+        ]
+      }
+    ],
+    "componentText": {
+      "c-start": {
+        "title": "Você pede um horário",
+        "description": "Você informa a data que gostaria de reservar.",
+        "input": "Um pedido com a data desejada.",
+        "output": "A data que será consultada."
+      },
+      "c-build": {
+        "title": "A equipe confere a data",
+        "description": "A equipe consulta os horários disponíveis para essa data.",
+        "input": "Data solicitada.",
+        "output": "Os horários disponíveis."
+      },
+      "c-review": {
+        "title": "Há horário livre?",
+        "description": "Se houver horário, o pedido pode seguir para a confirmação.",
+        "input": "Lista de horários para a data.",
+        "output": "Sim: confirmar. Não: escolher outra data."
+      },
+      "c-fix": {
+        "title": "Você escolhe outra data",
+        "description": "Quando não há horário, uma nova data volta para a conferência.",
+        "input": "Uma data sem horário livre.",
+        "output": "Outra data para ser conferida."
+      },
+      "c-deliver": {
+        "title": "Você recebe a confirmação",
+        "description": "A equipe informa qual horário foi reservado.",
+        "input": "Um horário que pôde ser reservado.",
+        "output": "Mensagem de confirmação."
+      }
+    },
+    "itemText": {
+      "t-build": {
+        "title": "Experimentar as duas possibilidades",
+        "description": "Use datas fictícias para conferir o caminho com horário livre e o retorno quando não houver horário."
+      },
+      "t-example-check": {
+        "title": "Conferência de um pedido fictício",
+        "description": "No teste fictício, um pedido com data preenchida chegou à conferência. As duas alternativas ainda precisam ser testadas."
+      },
+      "crit-demo": {
+        "title": "Conferir o que foi comprovado",
+        "description": "Antes de concluir, falta conferir se há registros que sustentam cada resultado esperado."
+      }
+    }
+  }
 }

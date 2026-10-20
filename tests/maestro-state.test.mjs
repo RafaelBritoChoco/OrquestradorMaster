@@ -7,6 +7,7 @@ import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {generate,validate,layoutFlow} from '../skills/maestro-economico/scripts/project-state.mjs';
 import {evaluate} from '../skills/maestro-economico/scripts/jev-evaluate.mjs';
+import {planPresentationRoutes,pendingItems} from '../skills/maestro-economico/scripts/project-presentation.mjs';
 
 const skill=new URL('../skills/maestro-economico/',import.meta.url);
 const read=relative=>JSON.parse(fs.readFileSync(new URL(relative,skill),'utf8'));
@@ -34,9 +35,9 @@ test('verified consumers reject invalidated proofs without losing outputs',t=>{
  stale.evidence.push({id:'proof-old',title:'Synthetic superseded test',status:'desatualizado',evidenceIds:[],source:'fixture:previous',result:'Invalidated after change',kind:'runtime',revision:1,supports:['c-build','t-build']});
  for(const c of [stale.components[1],stale.tasks[0]]){c.status='verificado';c.evidenceIds=['proof-old'];}
  assert.throws(()=>f.render(stale),/correspondente/);f.unchanged(before);
- stale.evidence.push({...stale.evidence[0],id:'proof-current',status:'verificado'});
+ stale.evidence.push({...stale.evidence.find(e=>e.id==='proof-old'),id:'proof-current',status:'verificado'});
  for(const c of [stale.components[1],stale.tasks[0]])c.evidenceIds.push('proof-current');validate(stale);
- stale.evidence[1].supports=[];assert.throws(()=>validate(stale),/correspondente/);
+ stale.evidence.find(e=>e.id==='proof-current').supports=[];assert.throws(()=>validate(stale),/correspondente/);
 });
 
 test('ID identity and history survive revisions; legacy migration is explicit',t=>{
@@ -74,10 +75,45 @@ test('return and same-row branch avoid neighbouring blocks and label collisions'
 test('untrusted strings round-trip as inert JSON, not markup',t=>{
  const f=fixture(t),s=structuredClone(base);s.title='Synthetic </script><img src=x onerror=alert(1)>';s.components[0].title='<script>synthetic</script>';
  f.render(s);const html=fs.readFileSync(path.join(f.out,names[0]),'utf8');
- const embedded=JSON.parse(html.match(/const state=(.*);\nconst layoutFlow=/)[1]);assert.deepEqual(embedded,s);assert(!html.includes('<img src=x'));assert(html.includes("connect-src 'none'"));
+ const embedded=JSON.parse(html.match(/const state=(.*);\r?\nconst layoutFlow=/)[1]);assert.deepEqual(embedded,s);assert(!html.includes('<img src=x'));assert(html.includes("connect-src 'none'"));
 });
 
 test('optional Jev dry run never sends a request or needs a key',async()=>{
  let calls=0;const result=await evaluate(read('examples/jev-batch.json'),{env:{},fetchImpl:async()=>{calls++;throw Error('Network forbidden in synthetic test');}});
  assert.equal(calls,0);assert.equal(result.dryRun,true);assert.equal(result.telemetry.apiCalls,0);assert.equal(result.telemetry.reportedUsage,null);
+});
+
+test('presentation preserves legacy state and unrelated metadata without inventing status',t=>{
+ const f=fixture(t),legacy=structuredClone(base);delete legacy.presentation;
+ legacy.presentation={version:1,custom:'Unrelated legacy metadata remains unchanged'};const before=structuredClone(legacy);f.render(legacy);assert.deepEqual(legacy,before);
+ const html=fs.readFileSync(path.join(f.out,names[0]),'utf8');assert.deepEqual(JSON.parse(html.match(/const state=(.*);\r?\nconst layoutFlow=/)[1]),before);assert(html.includes('A apresentação ainda não foi preparada'));
+ const changed=structuredClone(legacy);changed.revision=2;changed.presentation={schemaVersion:99};const outputs=f.bytes();assert.throws(()=>f.render(changed),/schemaVersion/);f.unchanged(outputs);
+});
+
+test('presentation paths and branches must follow real directed connections',t=>{
+ const f=fixture(t);f.render(base);const outputs=f.bytes();
+ for(const change of [s=>s.presentation.mainPath.reverse(),s=>s.presentation.branches[0].after='c-start',s=>s.presentation.branches[0].componentIds=['c-start'],s=>delete s.presentation.componentText['c-build']]){const s=structuredClone(base);s.revision=2;change(s);assert.throws(()=>f.render(s));f.unchanged(outputs);}
+});
+
+test('friendly text cannot inject markup and does not replace canonical evidence',t=>{
+ const f=fixture(t),s=structuredClone(base);s.presentation.componentText['c-start'].title='<img src=x onerror=alert(1)>';s.presentation.componentText['c-start'].description='</script><script>alert(1)</script>';
+ const evidence=structuredClone(s.evidence);f.render(s);const html=fs.readFileSync(path.join(f.out,names[0]),'utf8');assert(!html.includes('<img src=x'));assert.deepEqual(s.evidence,evidence);assert.deepEqual(JSON.parse(html.match(/const state=(.*);\r?\nconst layoutFlow=/)[1]),s);
+});
+
+test('independent nested returns have separate lanes and reserved endpoint space',t=>{
+ const f=fixture(t),s=structuredClone(base);s.connections.push({id:'e-new-request',title:'Novo pedido',status:'planejado',evidenceIds:[],from:'c-deliver',to:'c-start',label:'Novo pedido'});
+ const before=structuredClone(s);validate(s);const plan=planPresentationRoutes(s,s.presentation),a=plan.routes.find(r=>r.id==='e-return'),b=plan.routes.find(r=>r.id==='e-new-request');assert.equal(a.side,'right');assert.equal(b.side,'right');assert.notEqual(a.laneInset,b.laneInset);assert.notEqual(a.portFraction,b.portFraction);assert(plan.topPadding>0&&plan.bottomPadding>0);f.render(s);assert.deepEqual(s,before);
+});
+
+test('unrepresentable crossing returns reject before replacing valid outputs',t=>{
+ const f=fixture(t);f.render(base);const outputs=f.bytes(),s=structuredClone(base);s.revision=2;
+ for(const [id,from,to]of [['e-back-start','c-review','c-start'],['e-back-review','c-deliver','c-review']])s.connections.push({id,title:id,status:'planejado',evidenceIds:[],from,to,label:'Rever'});
+ assert.throws(()=>f.render(s),/retornos que não podem ser separados/);f.unchanged(outputs);
+});
+
+test('pending criteria remain in the visible synthesis independently of completed tasks',t=>{
+ const f=fixture(t),s=structuredClone(base);s.tasks[0].status='verificado';s.tasks[0].evidenceIds=['proof-reading'];s.evidence.push({id:'proof-reading',title:'Leitura fictícia',status:'verificado',evidenceIds:[],source:'fixture: configuração',result:'Somente leitura',kind:'source',revision:1,supports:['t-build']});
+ s.presentation.itemText['crit-demo']={title:'Testar os dois caminhos',description:'Ainda falta conferir os dois resultados esperados.'};const before=structuredClone(s);
+ for(const status of ['pendente','desatualizado','observado','inferido','planejado']){s.criteria[0].status=status;assert(pendingItems(s).some(i=>i.id==='crit-demo'));validate(s);}
+ s.criteria[0].status='pendente';f.render(s);assert.deepEqual(s,before);const html=fs.readFileSync(path.join(f.out,names[0]),'utf8');assert(JSON.parse(html.match(/const pendingIds=(.*);/)[1]).includes('crit-demo'));
 });

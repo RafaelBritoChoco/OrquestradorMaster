@@ -2,17 +2,17 @@
   "schemaVersion": 1,
   "revision": 1,
   "projectId": "example-existing",
-  "title": "Exemplo sintético • projeto existente",
-  "objective": "Demonstrar proposta, execução e revisão sem dados reais.",
+  "title": "Conferência de um arquivo fictício",
+  "objective": "Mostrar como uma equipe confere um arquivo antes de guardar o resultado.",
   "stateOwner": "Dono sintético",
-  "nextStep": "Executar implementação delimitada; revisão e instalação pendentes.",
+  "nextStep": "Experimentar o caminho completo com um arquivo fictício.",
   "components": [
     {
       "id": "c-start",
-      "title": "Contrato e critérios",
+      "title": "Você escolhe o arquivo",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Contrato e critérios",
+      "responsibility": "O trabalho começa com o arquivo que você quer conferir.",
       "inputs": [
         "Contrato"
       ],
@@ -27,12 +27,12 @@
     },
     {
       "id": "c-build",
-      "title": "Inspecionar e implementar",
+      "title": "Os campos são conferidos",
       "status": "observado",
       "evidenceIds": [
         "proof-source"
       ],
-      "responsibility": "Responsabilidade sintética de Inspecionar e implementar",
+      "responsibility": "A conferência procura os campos esperados.",
       "inputs": [
         "Contrato"
       ],
@@ -47,10 +47,10 @@
     },
     {
       "id": "c-review",
-      "title": "Critérios satisfeitos?",
+      "title": "Falta alguma informação?",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Critérios satisfeitos?",
+      "responsibility": "O resultado decide se é preciso completar alguma coisa.",
       "inputs": [
         "Contrato"
       ],
@@ -65,10 +65,10 @@
     },
     {
       "id": "c-fix",
-      "title": "Corrigir no mesmo chat",
+      "title": "Você completa os dados",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Corrigir no mesmo chat",
+      "responsibility": "As informações ausentes são preenchidas antes de conferir novamente.",
       "inputs": [
         "Contrato"
       ],
@@ -82,11 +82,11 @@
       "kind": "process"
     },
     {
-      "id": "c-deliver",
-      "title": "Entregar após aprovação",
+      "id": "c-preview",
+      "title": "Você confere uma prévia",
       "status": "planejado",
       "evidenceIds": [],
-      "responsibility": "Responsabilidade sintética de Entregar após aprovação",
+      "responsibility": "Você vê o resultado antes de guardá-lo.",
       "inputs": [
         "Contrato"
       ],
@@ -97,54 +97,81 @@
       "layer": "execução",
       "row": 4,
       "col": 0,
+      "kind": "process"
+    },
+    {
+      "id": "c-deliver",
+      "title": "Você guarda o resultado",
+      "status": "planejado",
+      "evidenceIds": [],
+      "responsibility": "Depois da conferência, o resultado pode ser guardado.",
+      "inputs": [
+        "Contrato"
+      ],
+      "outputs": [
+        "Delta e evidência"
+      ],
+      "flow": "principal",
+      "layer": "execução",
+      "row": 5,
+      "col": 0,
       "kind": "end"
     }
   ],
   "connections": [
     {
       "id": "e-one",
-      "title": "delegar",
+      "title": "Enviar arquivo",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-start",
       "to": "c-build",
-      "label": "delegar"
+      "label": "Enviar arquivo"
     },
     {
       "id": "e-two",
-      "title": "evidência",
+      "title": "Ver resultado",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-build",
       "to": "c-review",
-      "label": "evidência"
+      "label": "Ver resultado"
     },
     {
       "id": "e-yes",
-      "title": "sim",
+      "title": "Não falta informação",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-review",
-      "to": "c-deliver",
-      "label": "sim"
+      "to": "c-preview",
+      "label": "Não"
     },
     {
       "id": "e-no",
-      "title": "não",
+      "title": "Falta informação",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-review",
       "to": "c-fix",
-      "label": "não"
+      "label": "Sim"
     },
     {
       "id": "e-return",
-      "title": "rechecagem",
+      "title": "Conferir de novo",
       "status": "planejado",
       "evidenceIds": [],
       "from": "c-fix",
-      "to": "c-review",
-      "label": "rechecagem"
+      "to": "c-build",
+      "label": "Conferir de novo"
+    },
+    {
+      "id": "e-preview",
+      "title": "Guardar",
+      "status": "planejado",
+      "evidenceIds": [],
+      "from": "c-preview",
+      "to": "c-deliver",
+      "label": "Guardar"
     }
   ],
   "chats": [
@@ -163,7 +190,7 @@
   "tasks": [
     {
       "id": "t-build",
-      "title": "Implementar menor mudança completa",
+      "title": "Experimentar a conferência inteira",
       "status": "pendente",
       "evidenceIds": [],
       "owner": "Executor sintético",
@@ -196,10 +223,10 @@
   "issues": [
     {
       "id": "issue-local",
-      "title": "Mudança preexistente",
+      "title": "Ainda falta testar o caminho completo",
       "status": "pendente",
       "evidenceIds": [],
-      "detail": "Preservar trabalho local sintético e testar delta antes de integrar."
+      "detail": "A leitura encontrou a parte de conferência; ainda não comprova o uso completo com um arquivo."
     }
   ],
   "evidence": [
@@ -225,5 +252,78 @@
       "evidenceIds": [],
       "detail": "Estado sintético inicial; sem implementação alegada."
     }
-  ]
+  ],
+  "presentation": {
+    "schemaVersion": 1,
+    "title": "Conferência de um arquivo fictício",
+    "intro": "Este exemplo fictício mostra o caminho de um arquivo até um resultado conferido. Encontrar uma parte no projeto não prova que ela já funciona.",
+    "nextStep": "Experimentar o caminho completo com um arquivo fictício.",
+    "mainPath": [
+      "c-start",
+      "c-build",
+      "c-review",
+      "c-preview",
+      "c-deliver"
+    ],
+    "branches": [
+      {
+        "after": "c-review",
+        "componentIds": [
+          "c-fix"
+        ]
+      }
+    ],
+    "componentText": {
+      "c-start": {
+        "title": "Você escolhe o arquivo",
+        "description": "O trabalho começa com o arquivo que você quer conferir.",
+        "input": "Um arquivo que você escolheu.",
+        "output": "Arquivo pronto para conferir."
+      },
+      "c-build": {
+        "title": "Os campos são conferidos",
+        "description": "A conferência procura os campos esperados.",
+        "input": "Campos do arquivo selecionado.",
+        "output": "Lista do que está preenchido e do que falta."
+      },
+      "c-review": {
+        "title": "Falta alguma informação?",
+        "description": "O resultado decide se é preciso completar alguma coisa.",
+        "input": "Resultado da conferência.",
+        "output": "Sim: completar dados. Não: conferir a prévia."
+      },
+      "c-fix": {
+        "title": "Você completa os dados",
+        "description": "As informações ausentes são preenchidas antes de conferir novamente.",
+        "input": "Lista de informações ausentes.",
+        "output": "Arquivo com os dados completados."
+      },
+      "c-preview": {
+        "title": "Você confere uma prévia",
+        "description": "Você vê o resultado antes de guardá-lo.",
+        "input": "Arquivo sem informação obrigatória ausente.",
+        "output": "Prévia aprovada para guardar."
+      },
+      "c-deliver": {
+        "title": "Você guarda o resultado",
+        "description": "Depois da conferência, o resultado pode ser guardado.",
+        "input": "Prévia que você conferiu.",
+        "output": "Resultado guardado."
+      }
+    },
+    "itemText": {
+      "t-build": {
+        "title": "Experimentar a conferência inteira",
+        "description": "Abra um arquivo completo e outro com campos faltando para conferir o caminho inteiro, sem usar dados reais."
+      },
+      "issue-local": {
+        "title": "Conferir o caminho inteiro",
+        "description": "Foi encontrada a parte de conferir campos, mas ainda falta experimentar o caminho até guardar o resultado."
+      },
+      "crit-demo": {
+        "title": "Conferir o que foi comprovado",
+        "description": "Antes de concluir, falta conferir se há registros que sustentam cada resultado esperado."
+      }
+    }
+  }
 }

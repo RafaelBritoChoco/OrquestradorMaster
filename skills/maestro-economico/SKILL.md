@@ -3,7 +3,7 @@ name: maestro-economico
 description: Coordene projetos por conversas visíveis Codex, contratos verificáveis, revisão independente e estado visual em fluxograma offline. Use em trabalho de várias etapas ou coordenação; a execução pertence a um executor, inclusive em rotinas simples. Jev é opcional.
 ---
 
-# Maestro Econômico 3.0.0
+# Maestro Econômico 3.1.0
 
 O coordenador faz somente triagem mínima, contratos, síntese e decisões com inspeção proporcional. Nunca implementa, edita entregas ou opera aparelho, inclusive em tarefa trivial. O executor mantém propriedade da unidade até testes, correções e integração. Preserve escolhas explícitas do usuário, trabalho existente e configuração global do runtime.
 
@@ -33,7 +33,9 @@ Um dono recebe deltas e evidência dos executores e mantém `project-state.json`
 
 O fluxograma é a visualização principal: blocos selecionáveis, setas direcionais rotuladas, decisões e ramificações quando presentes, com visão geral primeiro e filtros por fluxo/camada. Seleção expõe responsabilidade, entradas, saídas, relações e evidências. Status textual distingue planejado, observado, inferido, verificado, desatualizado e pendente. Qualquer item verificado exige prova válida correspondente; invalidar a única prova exige reabrir o consumidor. IDs conservam coleção/tipo entre revisões; migração de recibo antigo não comprova identidade retroativa. [CLI e schema](references/project-state.md), [checkpoint](references/state-template.md), [workflow](references/workflow.md).
 
-Revisor lê artefatos reais e verifica critérios, interfaces e fluxo do usuário; não basta resumo do executor. Retorna localização, impacto e condição de resolução. Correções pertencem ao mesmo executor. Declare evidências invalidadas após mudança relevante. Encerre com aprovado ou pendências honestas; candidato pronto para revisão não é instalação concluída.
+A abertura deve explicar o projeto em linguagem comum: caminho principal curto, ramos reais, testes e próximos passos sem IDs, hashes ou enums. O responsável escolhe o caminho e escreve textos amigáveis na extensão opcional `presentation`; não prometa que o gerador entende ou simplifica qualquer projeto automaticamente. Mapa completo e provas ficam acessíveis por expansão.
+
+Revisor lê artefatos reais e verifica critérios, interfaces e fluxo do usuário; não basta resumo do executor. Para mudanças visuais, abra o HTML final e confira compreensão e seleção em celular/teclado, além da integridade técnica; contagem de testes não prova facilidade de entender. Consulte [revisão de compreensão](references/presentation-review.md). Retorna localização, impacto e condição de resolução. Correções pertencem ao mesmo executor. Declare evidências invalidadas após mudança relevante. Encerre com aprovado ou pendências honestas; candidato pronto para revisão não é instalação concluída.
 
 Jev permanece opcional: código/busca determinísticos primeiro; só use decisão semântica estruturada quando justificar chamada adicional. [Helper e limites](references/jev.md). Não presuma gateway ou integração automática.
 
