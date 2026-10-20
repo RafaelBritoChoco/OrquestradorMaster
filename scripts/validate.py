@@ -29,8 +29,8 @@ def validate(root=ROOT):
     for rel in required:
         if not (root / rel).is_file():
             errors.append(f'Arquivo obrigatório ausente: {rel}')
-    if (root / 'VERSION').is_file() and (root / 'VERSION').read_text().strip() != '0.2.0':
-        errors.append('VERSION deve ser 0.2.0')
+    if (root / 'VERSION').is_file() and (root / 'VERSION').read_text().strip() != '0.2.1':
+        errors.append('VERSION deve ser 0.2.1')
     skill = root / 'skills' / 'orquestrador-master'
     entry = skill / 'SKILL.md'
     if entry.is_file():

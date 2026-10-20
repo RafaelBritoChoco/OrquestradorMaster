@@ -1,0 +1,69 @@
+name: Relatar problema
+description: Descreva um problema reproduzível na skill ou nos utilitários.
+title: '[Problema] '
+body:
+- type: markdown
+  attributes:
+    value: Este relato é público. Use um exemplo sintético neutro e remova dados pessoais, segredos e
+      nomes, links, diagnósticos, código, caminhos ou logs de projetos atendidos. A beta depende do modelo
+      e das capacidades disponíveis.
+- type: input
+  id: version
+  attributes:
+    label: Versão ou commit do OrquestradorMaster
+    description: Informe a versão usada e, se disponível, o commit. Se não souber, escreva “não informado”.
+    placeholder: 0.2.1; commit não informado
+  validations:
+    required: true
+- type: input
+  id: environment
+  attributes:
+    label: Aplicativo e modelo
+    description: Informe o aplicativo/cliente e o modelo; se não souber, escreva “não informado”. Para
+      utilitário local, indique “não se aplica”.
+    placeholder: 'Aplicativo: …; modelo: …'
+  validations:
+    required: true
+- type: input
+  id: project_type
+  attributes:
+    label: Tipo de projeto ou material
+    description: Indique somente a categoria, sem identificar o projeto real.
+    placeholder: Documento, pesquisa, design, organização ou software
+  validations:
+    required: true
+- type: textarea
+  id: capabilities
+  attributes:
+    label: Modo de uso e capacidades disponíveis
+    description: Indique texto colado, anexo ou cópia local; mencione ferramentas relevantes. Para utilitário,
+      inclua sistema e versão do Python se souber.
+    placeholder: Texto/anexo; sem ferramentas externas
+  validations:
+    required: false
+- type: textarea
+  id: reproduction
+  attributes:
+    label: Prompt ou passos mínimos para reproduzir
+    description: Reduza o caso ao essencial e substitua todo material real por conteúdo sintético neutro.
+    placeholder: 'Material fictício: …
+
+      Prompt ou passos: …'
+  validations:
+    required: true
+- type: textarea
+  id: expected
+  attributes:
+    label: Resultado esperado
+    description: Descreva o critério ou comportamento que esperava.
+    placeholder: Esperava que …
+  validations:
+    required: true
+- type: textarea
+  id: observed
+  attributes:
+    label: Resultado observado
+    description: Descreva o que ocorreu. Para sugestão, explique a dificuldade ou oportunidade de melhoria.
+    placeholder: Observei que …
+  validations:
+    required: true

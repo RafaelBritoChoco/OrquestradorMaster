@@ -1,5 +1,13 @@
 # Histórico
 
+## 0.2.1 — 2026-10-20 — beta pública
+
+- README em português com primeiro uso por texto ou anexo, prompt adaptável e exemplo sintético neutro.
+- Orientações de contribuição e formulários públicos para feedback e problemas, com contexto mínimo de reprodução e aviso para sanitizar o conteúdo.
+- Links para a release e o canal de feedback, com limites da beta e dependência das capacidades reais do modelo explícitos.
+- Gate de versão do validador atualizado para exigir 0.2.1, sem alterar as demais validações.
+- Núcleo Markdown, adaptador opcional e separação entre distribuição e projetos de aplicação preservados.
+
 ## 0.2.0 — 2026-10-20
 
 - Núcleo Markdown autossuficiente com descoberta de capacidades e modo texto/anexos.
